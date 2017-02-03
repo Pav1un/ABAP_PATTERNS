@@ -1,0 +1,8 @@
+﻿@model IEnumerable<String>
+
+<div class="btn-group-vertical " role="group">
+    @Html.ActionLink("Все", "List",null, new { @class = "btn btn-info" })
+    @foreach (var type in Model) {
+        @Html.ActionLink(type, "List", new { ptrnType = type }, new { @class = "btn btn-info" })
+    }
+</div>

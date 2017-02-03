@@ -1,0 +1,28 @@
+﻿@model Pattern
+
+@{
+    ViewBag.Title = "EditPattern";
+}
+<h2 class="text-info">Редактирование</h2>
+@using (Html.BeginForm()) {
+    foreach (var p in ViewData.ModelMetadata.Properties) {
+         <div class="form-group">
+         @Html.Label(p.DisplayName ?? p.PropertyName)
+         @if (p.PropertyName == "ShortDescription" || p.PropertyName == "LongDescription")
+         {
+             @Html.TextArea(p.PropertyName, null, new {@class = "form-control" });
+
+         } else if (p.PropertyName == "Type"){
+              @Html.DropDownList(p.PropertyName,
+                                 new SelectList(PatternsInAbap.Infrastructure.PatternInfo.PatternTypes), new { @class = "form-control" });
+
+         } else {
+            @Html.TextBox(p.PropertyName, null, new { @class = "form-control" });
+         }
+         </div>
+    }
+
+    <input type="submit" value="Сохранить" class="btn btn-info"/>
+    @Html.ActionLink("Отмена", "List", "Home", null, new { @class = "btn btn-info" });
+}
+
